@@ -1,10 +1,10 @@
 module.exports = {
-  'default-dark': `
+	'default-dark': `
     --pm-app-surface-color: #222;
     --pm-app-text-color: #fff;    
   `,
 
-  'sweet-carnival': `
+	'sweet-carnival': `
     --pm-font-family-secondary: HelveticaNeue,Helvetica Neue,Helvetica,Arial,sans-serif;
     --pm-primary-color: #90d2d8;
     --pm-secondary-color: #f6a6b2;
@@ -25,7 +25,7 @@ module.exports = {
     --pm-pre-color: #333;  
   `,
 
-  'solar-theme': `
+	'solar-theme': `
     --pm-primary-color: #ffce00;
     --pm-secondary-color: #ffaf9a;
     --pm-app-surface-color: #222222;
@@ -39,7 +39,7 @@ module.exports = {
     --pm-input-border-radius: 25px;  
   `,
 
-  'dark-blue-ocean': `
+	'dark-blue-ocean': `
     --pm-primary-color: #00c2c7;
     --pm-secondary-color: #00719c;
     --pm-app-surface-color: #011f4b;
@@ -56,7 +56,7 @@ module.exports = {
     --pm-pre-padding: 16px 24px;  
   `,
 
-  'skinny-theme': `
+	'skinny-theme': `
     --pm-primary-color: #42d4d5;
     --pm-secondary-color: #bcedfe;
     --pm-app-surface-color: transparent;
@@ -68,7 +68,7 @@ module.exports = {
     --pm-pre-code-border-radius: 0px;  
   `,
 
-  'fluorescent-green': `
+	'fluorescent-green': `
     --pm-primary-color: #00e500;
     --pm-secondary-color: #009900;
     --pm-app-surface-color: #000000;
@@ -82,7 +82,7 @@ module.exports = {
     --pm-input-border-width: 2px 0 2px 0;  
   `,
 
-  'black-and-white': `
+	'black-and-white': `
     --pm-font-family-secondary: HelveticaNeue,Helvetica Neue,Helvetica,Arial,sans-serif;
     --pm-primary-color: #000000;
     --pm-secondary-color: #f0f0f0;
@@ -98,7 +98,7 @@ module.exports = {
     --pm-pre-code-border-radius: 0px;  
   `,
 
-  'wooden-theme': `
+	'wooden-theme': `
     --pm-primary-color: #ae7c53;
     --pm-secondary-color: #d2b785;
     --pm-button-box-shadow: 6px 6px 6px -6px;
@@ -112,11 +112,11 @@ module.exports = {
     --pm-input-switch-size: 26px;
   `,
 
-  'solid-pink': `
+	'solid-pink': `
     --pm-primary-color: #ea1b85;
     --pm-secondary-color: #a3125d;
     --pm-button-border-radius: 0px;
     --pm-button-border-width: 2px;
     --pm-input-border-width: 2px;
-  `
-}
+  `,
+};

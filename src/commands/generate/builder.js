@@ -7,84 +7,87 @@ const _page = require('./page.js');
 const _files = require('./../../helpers/files.js');
 
 module.exports = {
-  readTarget(dirPath, filterExts = [], callback, result) {
-    if (!result) result = { [dirPath]: {} };
+	readTarget(dirPath, filterExts = [], callback, result) {
+		if (!result) result = { [dirPath]: {} };
 
-    _files.listDir(dirPath)
-      .map(itemPath => path.resolve(dirPath, itemPath))
-      .forEach(itemPath => {
-          if (_files.isDir(itemPath)) {
-            this.readTarget(itemPath, filterExts, callback, result);
-          } else {
-            const isExtAllowed = !filterExts.length || filterExts.includes(_files.fileExt(itemPath));
-            const mustIgnore = this.mustIgnore(itemPath);
-            
-            if (!mustIgnore && isExtAllowed) {
-              result[dirPath] = result[dirPath] || {};
-              const pageInfo = this.buildPageInfo(itemPath);
+		_files.listDir(dirPath)
+			.map(itemPath => path.resolve(dirPath, itemPath))
+			.forEach(itemPath => {
+				if (_files.isDir(itemPath)) {
+					this.readTarget(itemPath, filterExts, callback, result);
+				} else {
+					const isExtAllowed = !filterExts.length || filterExts.includes(_files.fileExt(itemPath));
+					const mustIgnore = this.mustIgnore(itemPath);
 
-              Object.assign(result[dirPath], {
-                [itemPath]: pageInfo
-              });
+					if (!mustIgnore && isExtAllowed) {
+						result[dirPath] = result[dirPath] || {};
+						const pageInfo = this.buildPageInfo(itemPath);
 
-              callback(pageInfo);
-            }
-          }
-      });
+						Object.assign(result[dirPath], {
+							[itemPath]: pageInfo,
+						});
 
-    return result;    
-  },
+						callback(pageInfo);
+					}
+				}
+			});
 
-  buildPageInfo(filePath) {
-    const info = path.parse(filePath);
+		return result;
+	},
 
-    info.destFileName = this.slugifyAsUrl(info.name);
-    info.relativeDir = this.slugifyAsUrl(_files.removeStartSlash(info.dir.replace(config.target, '')));
-    info.destDir = path.resolve(config.dest, this.slugifyAsUrl(info.relativeDir));
-    info.source = _files.readFile(filePath);
-    info.metadata = _page.extractPageMetadata(info);
-    info.contentHtml = info.ext === '.md' ? _page.markdownCompile(info) : info.source;
-    info.pageHtml = _page.generatePageHtmlFor(info);
+	buildPageInfo(filePath) {
+		const info = path.parse(filePath);
 
-    return info;
-  },
+		info.destFileName = this.slugifyAsUrl(info.name);
+		info.relativeDir = this.slugifyAsUrl(_files.removeStartSlash(info.dir.replace(config.target, '')));
+		info.destDir = path.resolve(config.dest, this.slugifyAsUrl(info.relativeDir));
+		info.source = _files.readFile(filePath);
+		info.metadata = _page.extractPageMetadata(info);
+		info.contentHtml = info.ext === '.md' ? _page.markdownCompile(info) : info.source;
+		info.pageHtml = _page.generatePageHtmlFor(info);
 
-  mustIgnore(itemPath) {
-    const isUserIgnored = config.configJson && config.configJson.ignore && !config.configJson.ignore.includes(itemPath);
+		return info;
+	},
 
-    return config.autoIgnore.includes(itemPath) || isUserIgnored;
-  },
+	mustIgnore(itemPath) {
+		const isUserIgnored = config.configJson &&
+			config.configJson.ignore && !config.configJson.ignore.includes(itemPath);
 
-  slugifyAsUrl(str) {
-    str = str
-      .replace(/\//g, 'token_not_to_replace_slash')
-      .replace(/\\/g, 'token_not_to_replace_backslash');
+		return config.autoIgnore.includes(itemPath) || isUserIgnored;
+	},
 
-    str = slugify(str, { lower: true });
+	slugifyAsUrl(str) {
+		str = str
+			.replace(/\//g, 'token_not_to_replace_slash')
+			.replace(/\\/g, 'token_not_to_replace_backslash');
 
-    return str
-      .replace(/token_not_to_replace_slash/g, '/')
-      .replace(/token_not_to_replace_backslash/g, '\\');
-  },
+		str = slugify(str, { lower: true });
 
-  createPageFile(pageInfo) {
-    const saveTo = pageInfo.name.toLowerCase() != 'index' ? path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
-    fs.mkdirSync(saveTo, { recursive: true });
+		return str
+			.replace(/token_not_to_replace_slash/g, '/')
+			.replace(/token_not_to_replace_backslash/g, '\\');
+	},
 
-    return new Promise((resolve, reject) => {
-      fs.writeFile(path.resolve(saveTo, 'index.html'), pageInfo.pageHtml, 'utf-8', err => {
-        err ? reject(err) : resolve(pageInfo);
-      });
-    });
-  },
+	createPageFile(pageInfo) {
+		const saveTo = pageInfo.name.toLowerCase() != 'index' ?
+			path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
 
-  copyStaticDirs(dirs = []) {
-    dirs.forEach(dir => {
-      const dirPath = path.resolve(config.target, dir);
-      const destPath = path.resolve(config.dest, dir);
-      const mustCopy = _files.exists(dirPath) && _files.isDir(dirPath);
+		fs.mkdirSync(saveTo, { recursive: true });
 
-      mustCopy && _files.copyDir(dirPath, destPath);
-    });
-  },  
-}
+		return new Promise((resolve, reject) => {
+			fs.writeFile(path.resolve(saveTo, 'index.html'), pageInfo.pageHtml, 'utf-8', err => {
+				err ? reject(err) : resolve(pageInfo);
+			});
+		});
+	},
+
+	copyStaticDirs(dirs = []) {
+		dirs.forEach(dir => {
+			const dirPath = path.resolve(config.target, dir);
+			const destPath = path.resolve(config.dest, dir);
+			const mustCopy = _files.exists(dirPath) && _files.isDir(dirPath);
+
+			mustCopy && _files.copyDir(dirPath, destPath);
+		});
+	},
+};
