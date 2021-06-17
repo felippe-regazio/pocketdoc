@@ -29,6 +29,7 @@
       --header-height: 56px;
       --pm-app-surface-color: #fff;
       --default-border-color: rgba(100,100,100,.3);
+      --pm-pre-max-height: unset;      
   
       {{config.theme}}
     }
@@ -151,6 +152,33 @@
       padding: 14px 28px;
       min-height: var(--header-height);
     }
+
+    code .hljs-ln {
+      opacity: .5;
+      width: 34px;
+      margin-right: 12px;
+      display: inline-flex;
+      font-size: 11px;
+      align-items: center;
+      height: 100%;
+      line-height: normal;
+    }
+
+    {{#if page.metadata.noCodeLineNumbers}}
+      code .hljs-ln {
+        display: none;
+      }
+    {{else}}
+      pre > code:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        border-right: solid 1px currentColor;
+        top: 0;
+        left: 50px;
+        opacity: 0.4;
+      }
+    {{/if}}
 
     @media screen and (max-width: 1345px) {
       div.page-holder {

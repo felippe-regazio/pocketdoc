@@ -32,7 +32,14 @@ const page = {
 			highlight: (code, lang) => {
 				const hljs = require('highlight.js');
 				const language = hljs.getLanguage(lang) ? lang : 'plaintext';
-				return hljs.highlight(code, { language }).value;
+				// compiles the code with highlight
+				code = hljs.highlight(code, { language }).value;
+				// add line numbers to raw code tag
+				code = code.split('\n')
+					.map((line, index) => `<span class="hljs-ln">${index + 1}</span> ${line}`)
+					.join('\n');
+
+				return code;
 			},
 		});
 	},

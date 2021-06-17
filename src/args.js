@@ -8,6 +8,10 @@ class Args {
 	setArgs(args) {
 		Object.assign(this, args);
 	}
+
+	setArg(arg, value) {
+		this[arg] = value;
+	}
 }
 
 module.exports = new Args();
