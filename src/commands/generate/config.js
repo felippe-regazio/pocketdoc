@@ -7,6 +7,7 @@ const staticDirs = ['assets', 'public'];
 
 const _files = require('./../../helpers/files.js');
 const _autoincl = require('./autoincl.js');
+const { config } = require('process');
 
 const target = path.resolve(process.cwd(), args.params[0] || '');
 const dest = path.resolve(args.params[1] || './docs');
@@ -29,8 +30,9 @@ module.exports = {
 	hsltCss,
 	configJson,
 	configJsonPath,
+	args: config.args,
 	staticDirs: staticDirs,
-	autoInclude: _autoincl.getAutoIncludes(target, exts),
+	autoInclude: _autoincl.getAutoIncludes(target, exts) || {},
 	autoIgnore: _autoincl.getAutoIgnore(target, exts, staticDirs),
 
 	doInitializationCheck() {

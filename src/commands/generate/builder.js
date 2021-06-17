@@ -70,13 +70,23 @@ module.exports = {
 
 	createPageFile(pageInfo) {
 		const saveTo = pageInfo.name.toLowerCase() != 'index' ?
-			path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
-
+		path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
+		
 		fs.mkdirSync(saveTo, { recursive: true });
+		const saveToFile = path.resolve(saveTo, 'index.html');
+		
+		return new Promise((resolve, reject) => {						
+			console.log(`Creating ${saveToFile}`);
 
-		return new Promise((resolve, reject) => {
-			fs.writeFile(path.resolve(saveTo, 'index.html'), pageInfo.pageHtml, 'utf-8', err => {
-				err ? reject(err) : resolve(pageInfo);
+			fs.writeFile(saveToFile, pageInfo.pageHtml, 'utf-8', error => {
+				if (error) {
+					console.error(`Error while creating file: "${saveToFile}"`);
+					config.args.debug && console.error(error);
+
+					reject(err);
+				} else {
+					resolve(pageInfo);
+				}
 			});
 		});
 	},
@@ -87,6 +97,7 @@ module.exports = {
 			const destPath = path.resolve(config.dest, dir);
 			const mustCopy = _files.exists(dirPath) && _files.isDir(dirPath);
 
+			mustCopy && console.log(`Copying static dir "${dir}"`);
 			mustCopy && _files.copyDir(dirPath, destPath);
 		});
 	},
