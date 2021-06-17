@@ -1,0 +1,23 @@
+<body class="plume">
+  {{> header }}
+
+  {{#if config.autoInclude.sidebar}}
+  <div class="page-holder page-holder--with-sidebar">
+  {{else}}
+  <div class="page-holder">
+  {{/if}}
+    {{> sidebar }}
+
+    <div class="page-content">
+      <main class="pm-container">
+        {{{config.autoInclude.beforeContent}}}
+
+        {{{page.contentHtml}}}
+
+        {{{config.autoInclude.afterContent}}}
+      </main>
+
+      {{> footer }}
+    </div>
+  </div>
+</body>

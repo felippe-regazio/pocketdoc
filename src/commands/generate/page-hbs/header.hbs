@@ -1,0 +1,23 @@
+<header class="page-header">
+  <section>
+    <a class="page-header__title-a" href="/">
+      <div class="page-header__left">
+        {{#if page.metadata.logo}}
+          <img src="{{page.metadata.logo}}" alt="Documentation page logo image">
+        {{/if}}
+
+        <p>
+          {{#if page.metadata.headerName}}
+            {{{page.metadata.headerName}}}
+          {{else}}
+            Doc
+          {{/if}}
+        </p>
+      </div>
+    </a>
+
+    <div class="page-header__right">
+      {{{config.autoInclude.header}}}
+    </div>
+  </section>
+</header>

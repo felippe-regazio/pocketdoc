@@ -1,0 +1,20 @@
+{{#if config.autoInclude.sidebar}}
+  <aside class="page-sidebar" data-active-item="{{page.metadata.sidebarActiveItem}}">
+    <section class="page-sidebar__content">
+      {{{config.autoInclude.sidebar}}}
+    </section>
+  </aside>
+
+  {{#if page.metadata.sidebarActiveItem}}
+    <script>
+      (function() {
+        var aside = document.querySelector('aside.page-sidebar');
+        var activeItem = aside.dataset.activeItem;
+
+        activeItem && document.querySelectorAll(activeItem).forEach(function(item) {
+          item.classList.add('active');
+        });
+      })();
+    </script>
+  {{/if}}
+{{/if}}
