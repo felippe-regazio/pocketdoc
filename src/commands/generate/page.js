@@ -30,9 +30,9 @@ const page = {
 	markdownCompile(pageInfo) {
 		return marked(pageInfo.source, {
 			highlight: (code, lang) => {
-				const hlighter = require('highlight.js');
-				const language = hlighter.getLanguage(lang) ? lang : 'plaintext';
-				return hlighter.highlight(code, { language }).value;
+				const hljs = require('highlight.js');
+				const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+				return hljs.highlight(code, { language }).value;
 			},
 		});
 	},
