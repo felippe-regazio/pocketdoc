@@ -70,12 +70,12 @@ module.exports = {
 
 	createPageFile(pageInfo) {
 		const saveTo = pageInfo.name.toLowerCase() != 'index' ?
-		path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
-		
+			path.resolve(pageInfo.destDir, pageInfo.destFileName) : pageInfo.destDir;
+
 		fs.mkdirSync(saveTo, { recursive: true });
 		const saveToFile = path.resolve(saveTo, 'index.html');
-		
-		return new Promise((resolve, reject) => {						
+
+		return new Promise((resolve, reject) => {
 			console.log(`Creating ${saveToFile}`);
 
 			fs.writeFile(saveToFile, pageInfo.pageHtml, 'utf-8', error => {

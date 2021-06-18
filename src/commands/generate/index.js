@@ -17,4 +17,4 @@ module.exports = () => {
 
 		console.log('\nDone');
 	}
-}
+};
