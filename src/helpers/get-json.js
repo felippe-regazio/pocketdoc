@@ -1,5 +1,5 @@
 /**
- * This function came from package extract-json-from-string
+ * This a modified version of package extract-json-from-string
  * https://www.npmjs.com/package/extract-json-from-string
  *
  * Original module by: Andrew Nichols
@@ -66,16 +66,17 @@ const extract = (str) => {
 module.exports = (str) => {
 	let result;
 	const objects = [];
+
 	while ((result = extract(str)) !== null) {
 		try {
 			const obj = {
 				obj: jsonify(result),
 				str: result,
 			};
+
 			objects.push(obj);
-		} catch (e) {
-			// Do nothing
-		}
+		} catch (error) {}
+
 		str = str.replace(result, '');
 	}
 
