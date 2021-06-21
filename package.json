@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "npm run test"
+    "test": "jest"
   },
   "author": "Felippe Regazio",
   "license": "Apache-2.0",
@@ -26,6 +26,7 @@
     "eslint": "^7.14.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-node": "^5.2.0",
-    "eslint-plugin-promise": "^3.5.0"
+    "eslint-plugin-promise": "^3.5.0",
+    "jest": "^27.0.4"
   }
 }

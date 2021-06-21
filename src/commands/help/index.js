@@ -8,7 +8,6 @@ Usage:
 Commands:
   g | generate {source} {dest}   build a new site from source to dest dir
   s | serve {source} {dest}      start a simple development server
-  c | create {name}              start a new pdoc static site project
   v | -v | version               show version information
   h | -h | help                  show this message
   t | themes                     show information about themes
