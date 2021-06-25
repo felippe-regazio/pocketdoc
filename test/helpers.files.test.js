@@ -63,12 +63,8 @@ describe('Test files operations helper', () => {
       rimraf.sync(testDir);
     }
 
-    try {
-      files.createDir(testDir);
-    } catch(error) {
-      expect(error).toBe(null);
-      expect(files.isDir(testDir)).toBe(true);
-    }
+    files.createDir(testDir);
+    expect(files.isDir(testDir)).toBe(true);
 
     try {
       files.createDir(testDir);
@@ -86,15 +82,69 @@ describe('Test files operations helper', () => {
   it('cleanDir', () => {
     const testDir = `${filesDir}/testing`;
 
-    try {
-      files.createDir(`${testDir}/testing/another`);
-    } catch(error) {
-      expect(error).toBe(null);
-      expect(files.isDir(testDir)).toBe(true);
-    }    
+    files.createDir(`${testDir}/another`);
+    expect(files.isDir(testDir)).toBe(true);
+
+    files.cleanDir(testDir);
+    expect(files.isDir(testDir)).toBe(true);
+    expect(files.isDir(`${testDir}/another`)).toBe(false);
 
     try {
-      files.cleanDir(testDir);
+      files.cleanDir('fake-dir');
+    } catch(error) {
+      expect(error.name).toEqual('Error');
     }
+  });
+
+  it('copyDir', () => {
+    const testDir = `${filesDir}/testing`;
+    const copyTo = path.resolve(testDir, '..', 'test-copy');
+
+    let cbOk = false;
+
+    if (files.isDir(copyTo)) {
+      rimraf.sync(copyTo);
+    }
+
+    files.copyDir(testDir, copyTo);
+    expect(files.isDir(copyTo)).toBe(true);
+
+    rimraf.sync(copyTo);
+    files.copyDir(testDir, copyTo, () => { cbOk = true });
+    expect(files.isDir(copyTo)).toBe(true);
+    expect(cbOk).toBe(true);
+
+    try {
+      files.copyDir(testDir, copyTo);
+    } catch(error) {
+      expect(error.name).toEqual('Error');
+    }
+
+    try {
+      files.copyDir(`${testDir}/test-file.html`, copyTo);
+    } catch(error) {
+      expect(error.name).toEqual('Error');
+    }
+
+    try {
+      files.copyDir(`fake-dir`, copyTo);
+    } catch(error) {
+      expect(error.name).toEqual('Error');
+    }    
+  });
+
+  it('removeStartSlash', () => {
+    const expectation = {
+      '/hello': 'hello',
+      '\\hello': 'hello',
+      'hello/': 'hello/',
+      '//hello': '/hello',
+      '\\\\hello': '\\hello',
+      '/ hello': ' hello'
+    };
+
+    Object.entries(expectation).forEach(entry => {
+      expect(files.removeStartSlash(entry[0])).toBe(entry[1]);
+    });
   });
 });

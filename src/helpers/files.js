@@ -33,8 +33,25 @@ module.exports = {
 	},
 
 	cleanDir(dir) {
+		if (!this.isDir(dir)) {
+			throw new Error(`Not a directory: "${dir}"`);
+		}
+		
 		rimraf.sync(dir);
 		this.createDir(dir);
+	},
+
+	copyDir(from, to, cb) {
+		if (!this.isDir(from)) {
+			throw new Error(`Not a directory: "${from}"`);
+		}
+
+		if (this.isDir(to)) {
+			throw new Error(`Directory already exists: "${to}"`);
+		}
+				
+		fse.copySync(from, to);
+		cb && cb(from, to);
 	},
 
 	removeStartSlash(str) {
@@ -43,10 +60,5 @@ module.exports = {
 		}
 
 		return str;
-	},
-
-	copyDir(from, to, cb) {
-		fse.copySync(from, to);
-		cb && cb(from, to);
-	},
+	},	
 };
