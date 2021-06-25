@@ -3,6 +3,16 @@ const files = require('../src/helpers/files.js');
 const filesDir = path.join(__dirname, 'files');
 const rimraf = require('rimraf');
 
+const clean = () => {
+  [
+    `${filesDir}/testing`,
+    `${filesDir}/test-copy`,
+  ].forEach(dir => rimraf.sync(dir));
+};
+
+afterAll(clean);
+beforeAll(clean);
+
 describe('Test files operations helper', () => {
   it('fileExists', () => {
     expect(files.exists(`${filesDir}/test-file.html`)).toBe(true);
@@ -59,10 +69,6 @@ describe('Test files operations helper', () => {
   it('createDir', () => {
     const testDir = `${filesDir}/testing`;
 
-    if (files.isDir(testDir)) {
-      rimraf.sync(testDir);
-    }
-
     files.createDir(testDir);
     expect(files.isDir(testDir)).toBe(true);
 
@@ -101,10 +107,6 @@ describe('Test files operations helper', () => {
     const copyTo = path.resolve(testDir, '..', 'test-copy');
 
     let cbOk = false;
-
-    if (files.isDir(copyTo)) {
-      rimraf.sync(copyTo);
-    }
 
     files.copyDir(testDir, copyTo);
     expect(files.isDir(copyTo)).toBe(true);
