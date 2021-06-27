@@ -13,7 +13,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate', () => {
     mockCommandArgv('generate');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(false);
@@ -24,7 +24,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate from to', () => {
     mockCommandArgv('generate from to');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(false);
@@ -36,7 +36,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate from to --quiet --debug', () => {
     mockCommandArgv('generate from to --quiet --debug');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(true);
@@ -48,7 +48,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate from to --quiet --debug --black-and-white', () => {
     mockCommandArgv('generate from to --quiet --debug --black-and-white');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(true);
@@ -60,7 +60,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate -q -d --black-and-white from to', () => {
     mockCommandArgv('generate from to -q -d --black-and-white');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(true);
@@ -72,7 +72,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ generate --black-and-white from', () => {
     mockCommandArgv('generate --black-and-white from');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('generate');
     expect(args.debug && args.quiet).toBe(false);
@@ -83,7 +83,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ serve --black-and-white from', () => {
     mockCommandArgv('serve --black-and-white from');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('serve');
     expect(args.debug && args.quiet).toBe(false);
@@ -94,7 +94,7 @@ describe('Test cli arguments reading', () => {
 
   it('$ serve -q -d --black-and-white from to', () => {
     mockCommandArgv('serve -q -d --black-and-white from to');
-    const args = require('../src/helpers/cli-args.js');
+    const args = require('../../src/helpers/cli-args.js');
     
     expect(args.command).toBe('serve');
     expect(args.debug && args.quiet).toBe(true);
@@ -107,7 +107,7 @@ describe('Test cli arguments reading', () => {
   ['version', 'help', 'themes'].forEach(cmd => {
     it(`$ ${cmd}`, () => {
       mockCommandArgv(cmd);
-      const args = require('../src/helpers/cli-args.js');
+      const args = require('../../src/helpers/cli-args.js');
   
       expect(args.command).toBe(cmd);
     });

@@ -1,4 +1,4 @@
-const aliases = require('../src/helpers/aliases.js');
+const aliases = require('../../src/helpers/aliases.js');
 
 describe('Test cli aliases', () => {
   it('Aliases must be immutable', () => {

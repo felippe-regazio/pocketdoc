@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "test": "jest"
+    "unit-test": "jest ./test/unit"
   },
   "author": "Felippe Regazio",
   "license": "Apache-2.0",
@@ -23,6 +23,7 @@
     "slugify": "^1.5.3"
   },
   "devDependencies": {
+    "cypress": "^7.6.0",
     "eslint": "^7.14.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-node": "^5.2.0",

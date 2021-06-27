@@ -1,5 +1,5 @@
 const path = require('path');
-const files = require('../src/helpers/files.js');
+const files = require('../../src/helpers/files.js');
 const filesDir = path.join(__dirname, 'files-helper-utils');
 const rimraf = require('rimraf');
 
