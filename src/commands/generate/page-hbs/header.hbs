@@ -2,13 +2,13 @@
   <section>
     <a class="page-header__title-a" href="/">
       <div class="page-header__left">
-        {{#if page.metadata.logo}}
-          <img src="{{page.metadata.logo}}" alt="Documentation page logo image">
+        {{#if page.metadata.logoSrc}}
+          <img src="{{page.metadata.logoSrc}}" alt="Documentation page logo image">
         {{/if}}
 
         <p>
-          {{#if page.metadata.headerName}}
-            {{{page.metadata.headerName}}}
+          {{#if page.metadata.brandTitle}}
+            {{{page.metadata.brandTitle}}}
           {{else}}
             Doc
           {{/if}}

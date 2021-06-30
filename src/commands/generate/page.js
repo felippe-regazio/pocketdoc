@@ -61,21 +61,18 @@ const page = {
 	doHandlebars(pageInfo) {
 		const pageMainSource = this.getPageHbsFile('main');
 
-		if (pageInfo.ext === '.hbs') {
-			const htmlContentProcessor = Handlebars.compile(pageInfo.contentHtml, {
-				noEscape: true,
-				preventIndent: true,
-			});
-
-			pageInfo.contentHtml = htmlContentProcessor(pageInfo.metadata);
-		}
-
-		const hbsProcessor = Handlebars.compile(pageMainSource, {
+		const contentHtmlProcessor = Handlebars.compile(pageInfo.contentHtml, {
 			noEscape: true,
 			preventIndent: true,
 		});
 
-		return hbsProcessor({ page: pageInfo, config: config });
+		const entirePageProcessor = Handlebars.compile(pageMainSource, {
+			noEscape: true,
+			preventIndent: true,
+		});
+
+		pageInfo.contentHtml = contentHtmlProcessor(pageInfo.metadata);
+		return entirePageProcessor({ page: pageInfo, config: config });
 	},
 
 	getPageHbsFile(which) {

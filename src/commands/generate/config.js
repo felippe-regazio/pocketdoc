@@ -12,7 +12,7 @@ const { config } = require('process');
 const target = path.resolve(process.cwd(), args.params[0] || '');
 const dest = path.resolve(args.params[1] || './docs');
 
-const configJsonPath = path.resolve(target, 'pocketdoc.config.json');
+const configJsonPath = path.resolve(target, 'pocketdoc.config.js');
 const configJson = _files.exists(configJsonPath) ? require(configJsonPath) : {};
 
 const baseCss = _files.readFile(require.resolve('plume-css'));

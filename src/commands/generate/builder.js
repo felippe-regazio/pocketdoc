@@ -51,7 +51,7 @@ module.exports = {
 
 	mustIgnore(itemPath) {
 		const isUserIgnored = config.configJson &&
-			config.configJson.ignore && !config.configJson.ignore.includes(itemPath);
+			config.configJson.ignore && config.configJson.ignore.includes(itemPath);
 
 		return config.autoIgnore.includes(itemPath) || isUserIgnored;
 	},
