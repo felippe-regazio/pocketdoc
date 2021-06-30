@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
+    "e2e-test": "cypress run",
     "unit-test": "jest ./test/unit"
   },
   "author": "Felippe Regazio",
