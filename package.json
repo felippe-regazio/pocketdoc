@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "cypress-test": "cypress run",
-    "jest-test": "jest ./test/jest",
-    "test": "npm run jest-test && npm run cypress-test"
+    "cypress": "cypress run",
+    "jest": "jest ./test/jest",
+    "test": "npm run jest && npm run cypress"
   },
   "author": "Felippe Regazio",
   "license": "Apache-2.0",

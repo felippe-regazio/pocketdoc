@@ -1,8 +1,8 @@
 {
-  "fixturesFolder": "test/cypress/fixtures",
-  "integrationFolder": "test/cypress/integration",
-  "pluginsFile": "test/cypress/plugins/index.js",
-  "screenshotsFolder": "test/cypress/screenshots",
+  "supportFile": false,
+  "pluginsFile": false,
   "videosFolder": "test/cypress/videos",
-  "supportFile": "test/cypress/support/index.js"
+  "fixturesFolder": "test/cypress/fixtures",
+  "screenshotsFolder": "test/cypress/screenshots",
+  "integrationFolder": "test/cypress/integration"
 }
